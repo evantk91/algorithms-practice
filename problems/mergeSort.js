@@ -25,6 +25,8 @@ function merge(left, right) {
    let leftIdx = 0;
    let rightIdx = 0;
 
+   const minLen = Math.min(left.length, right.length);
+
    //move through the list until we have exhausted one
    while(leftIdx < left.length && rightIdx < right.length) {
       //if left's item is larger, append right's item
@@ -36,17 +38,23 @@ function merge(left, right) {
       } else {
          merged.push(left[leftIdx]);
          leftIdx += 1;    
-      }   
+      }
+      
+      console.log(merged)
+      console.log('left index: ', leftIdx)
+      console.log('right index: ', rightIdx)
    }
 
-   //append any leftovers, 
-   merged.concat(left.slice(leftIdx));
-   merged.concat(right.slice(rightIdx));
+   //append any leftovers
+   merged = merged.concat(left.slice(leftIdx))
+   merged = merged.concat(right.slice(rightIdx));
 
    //return the merged list
    return merged;
 }
 
 let items = [5, 4, 1, 6];
-let merged = merge([1, 3, 7], [2, 5, 6]);
-console.log(merged);
+// let merged = merge([1, 12, 13], [5, 6]);
+// console.log(merged);
+let sorted = mergeSort(items);
+console.log(sorted);
