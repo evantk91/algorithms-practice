@@ -8,6 +8,8 @@ function mergeSort(items) {
    let midpoint = Math.floor(items.length / 2);
    let left = items.slice(0, midpoint);
    let right = items.slice(midpoint);
+   console.log('left: ', left);
+   console.log('right: ', right);
 
    //call merge sort recursively on the left and right half
    left = mergeSort(left);
@@ -40,9 +42,9 @@ function merge(left, right) {
          leftIdx += 1;    
       }
       
-      console.log(merged)
-      console.log('left index: ', leftIdx)
-      console.log('right index: ', rightIdx)
+      // console.log(merged)
+      // console.log('left index: ', leftIdx)
+      // console.log('right index: ', rightIdx)
    }
 
    //append any leftovers
@@ -53,7 +55,7 @@ function merge(left, right) {
    return merged;
 }
 
-let items = [5, 4, 1, 6];
+let items = [5, 4, 7, 1, 6];
 // let merged = merge([1, 12, 13], [5, 6]);
 // console.log(merged);
 let sorted = mergeSort(items);
