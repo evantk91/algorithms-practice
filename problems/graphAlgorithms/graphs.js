@@ -1,47 +1,53 @@
-class Graph {
-   constructor() {
-      this.nodes = new Set();
-      this.neighbors = {};
-      this.distances = {};
-   }
-   
-   addNode(value) {
-      this.nodes.add(value);    
+class GraphNode {
+   constructor(value) {
+      this.value = value;
+      this.children = [];    
    }
 
-   addEdge(fromNode, toNode, distance) {
-      this.neighbors[fromNode] 
-         ? this.neighbors[fromNode].push(toNode)
-         : this.neighbors[fromNode] = [toNode]
-        
-      this.neighbors[toNode]
-         ? this.neighbors[toNode].push(fromNode)
-         : this.neighbors[toNode] = [fromNode]
-         
-      this.distances[[fromNode, toNode]] = distance;
-      this.distances[[toNode, fromNode]] = distance;  
+   addChild(newNode) {
+       this.children.push(newNode);
+   }
+
+   removeChild(delNode) {
+      if(this.children.includes(delNode)) {
+         let removeIdx = this.children.indexOf(delNode); 
+         this.children.splice(removeIdx, 1);    
+      }    
+   }
+}
+
+class Graph {
+   constructor(nodeList) {
+      this.nodes = nodeList;    
+   }
+   
+   addEdge(node1, node2) {
+      if(this.nodes.includes(node1) && this.nodes.includes(node2)) {
+         node1.addChild(node2);
+         node2.addChild(node1);    
+      }    
+   }
+
+   removeEdge(node1, node2) {
+      if(this.nodes.includes(node1) && this.nodes.includes(node2)) {
+         node1.removeChild(node2);
+         node2.removeChild(node1);    
+      }    
+   }
+
+   printGraph() {
+      this.nodes.forEach(node => {
+         console.log('parent node: ', node.value)
+         console.log('children:')
+         node.children.forEach(child => {
+            console.log(child.value)
+         })
+         console.log('\n')
+      })
    }
 }
 
 module.exports = {
+   GraphNode, 
    Graph,    
 }
-
-// let graph = new Graph();
-// graph.addNode('A')
-// graph.addNode('B')
-// graph.addNode('C')
-// graph.addNode('D')
-// graph.addNode('E')
-// graph.addNode('F')
-// graph.addEdge('A', 'B', 5)
-// graph.addEdge('A', 'C', 4)
-// graph.addEdge('A', 'D', 2)
-// graph.addEdge('B', 'C', 2)
-// graph.addEdge('B', 'F', 2)
-// graph.addEdge('C', 'D', 1)
-// graph.addEdge('C', 'E', 1)
-// graph.addEdge('C', 'F', 3)
-// graph.addEdge('E', 'F', 2)
-
-// console.log(graph.distances);
